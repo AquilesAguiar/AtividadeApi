@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Teste de API</title>
+    </head>
+
+    <body>
+        <h1>Bem vindo ao memes 24H</h1>
+        <form action="/meme" method="post">
+            <button type="submit">Clique para gerar o meme abaixo:</button>
+        </form>
+        {%if url%}
+            <br>
+            <br>
+            <img src="{{url}}" alt="Meme" srcset="" width="360px" height="240px"> 
+        {%endif%}
+        <br><br>
+        
+        <h1>Bem vindo ao mortes (Game of Thrones) 24H </h1>
+        <p>Selecione a categoria de sua escolha,e informe o nome da informação desejada.</p>
+
+        <form action="/GOT" method="get">
+
+            <label for="category">Selecione a gategoria:</label>
+            <select name="category" id="">
+                <option value="books">Livros</option>
+                <option value="characters">Personagens</option>
+                <option value="houses">Casas</option>
+            </select> 
+
+            <br>
+
+            <label for="nome">Informe o nome:</label>
+            <input type="text" required name="nome">
+
+            <br>
+  
+            <button type="submit">Pesquisar</button>
+        </form>
+
+        {%if info%}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Gênero</th>
+                        <th>Cultura</th>
+                        <th>Data de Nascimento</th>
+                        <th>Titulos</th>
+                        <th>Morto em</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{info.name}}</td>
+                        <td>{{info.gender}}</td>
+                        <td>{{info.culture}}</td>
+                        <td>{{info.born}}</td>
+                        <td>
+                            {%for x in info.titles%}
+                                {{x}}
+                            {%endfor%}
+                        </td>
+                        <td>{{info.died}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {%else%}
+            <br>
+            {%if get_flashed_messages()%}         
+                    {% for message in get_flashed_messages() %}
+                            {{ message }}
+                    {% endfor %}
+            {% endif %}
+        {%endif%}
+    </body>
+</html>
